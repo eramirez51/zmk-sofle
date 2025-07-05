@@ -6,4 +6,4 @@ tools/
 zephyr/
 zmk/
 *.uf2
-.DS_Store
+.DS_Storezephyr-sdk-*.tar.xz
