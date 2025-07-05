@@ -50,4 +50,5 @@ jobs:
         with:
           name: firmware
           path: |
-            *.uf2
+            eyelash_sofle_left.uf2
+            eyelash_sofle_right.uf2
