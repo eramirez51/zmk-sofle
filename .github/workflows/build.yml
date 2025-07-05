@@ -33,22 +33,29 @@ jobs:
         run: west update
       - name: West Zephyr export
         run: west zephyr-export
-      - name: West Build (eyelash_sofle_left)
-        run: west build -s zmk/app -b eyelash_sofle_left -- -DZMK_CONFIG="${GITHUB_WORKSPACE}/config" -DBOARD_ROOT="${GITHUB_WORKSPACE}"
-      - name: eyelash_sofle_left Kconfig file
+      - name: West Build (Sofle Left)
+        run: west build -s zmk/app -b nice_nano_v2 -- -DSHIELD=sofle_left -DZMK_CONFIG="${GITHUB_WORKSPACE}/config"
+      - name: Sofle Left Kconfig file
         run: cat build/zephyr/.config | grep -v "^#" | grep -v "^$"
       - name: Rename zmk.uf2
-        run: cp build/zephyr/zmk.uf2 eyelash_sofle_left.uf2
-      - name: West Build (eyelash_sofle_right)
-        run: west build --pristine -s zmk/app -b eyelash_sofle_right -- -DZMK_CONFIG="${GITHUB_WORKSPACE}/config" -DBOARD_ROOT="${GITHUB_WORKSPACE}"
-      - name: eyelash_sofle_right Kconfig file
+        run: cp build/zephyr/zmk.uf2 sofle_left.uf2
+      - name: West Build (Sofle Right)
+        run: west build --pristine -s zmk/app -b nice_nano_v2 -- -DSHIELD=sofle_right -DZMK_CONFIG="${GITHUB_WORKSPACE}/config"
+      - name: Sofle Right Kconfig file
         run: cat build/zephyr/.config | grep -v "^#" | grep -v "^$"
       - name: Rename zmk.uf2
-        run: cp build/zephyr/zmk.uf2 eyelash_sofle_right.uf2
+        run: cp build/zephyr/zmk.uf2 sofle_right.uf2
+      - name: West Build (Settings Reset)
+        run: west build --pristine -s zmk/app -b nice_nano_v2 -- -DSHIELD=settings_reset -DZMK_CONFIG="${GITHUB_WORKSPACE}/config"
+      - name: Settings Reset Kconfig file
+        run: cat build/zephyr/.config | grep -v "^#" | grep -v "^$"
+      - name: Rename zmk.uf2
+        run: cp build/zephyr/zmk.uf2 settings_reset.uf2
       - name: Archive firmware
         uses: actions/upload-artifact@v4
         with:
           name: firmware
           path: |
-            eyelash_sofle_left.uf2
-            eyelash_sofle_right.uf2
+            sofle_left.uf2
+            sofle_right.uf2
+            settings_reset.uf2
