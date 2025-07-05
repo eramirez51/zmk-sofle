@@ -34,13 +34,13 @@ jobs:
       - name: West Zephyr export
         run: west zephyr-export
       - name: West Build (eyelash_sofle_left)
-        run: west build -s zmk/app -b eyelash_sofle_left -- -DZMK_CONFIG="${GITHUB_WORKSPACE}/config"
+        run: west build -s zmk/app -b eyelash_sofle_left -- -DZMK_CONFIG="${GITHUB_WORKSPACE}/config" -DBOARD_ROOT="${GITHUB_WORKSPACE}"
       - name: eyelash_sofle_left Kconfig file
         run: cat build/zephyr/.config | grep -v "^#" | grep -v "^$"
       - name: Rename zmk.uf2
         run: cp build/zephyr/zmk.uf2 eyelash_sofle_left.uf2
       - name: West Build (eyelash_sofle_right)
-        run: west build --pristine -s zmk/app -b eyelash_sofle_right -- -DZMK_CONFIG="${GITHUB_WORKSPACE}/config"
+        run: west build --pristine -s zmk/app -b eyelash_sofle_right -- -DZMK_CONFIG="${GITHUB_WORKSPACE}/config" -DBOARD_ROOT="${GITHUB_WORKSPACE}"
       - name: eyelash_sofle_right Kconfig file
         run: cat build/zephyr/.config | grep -v "^#" | grep -v "^$"
       - name: Rename zmk.uf2
